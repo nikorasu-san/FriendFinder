@@ -6,10 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
-    <h1>Home page</h1>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-4">TV Friend Finder</h1>
+            <p class="lead">Answer some basic questions and find a show that you like.</p>
+            <hr class="my-4">
+            <p>If you would like to add a show let me know.</p>
+            <a class="btn btn-primary btn-lg text-center" href="/survey" role="button">Go to Survey</a>
+        </div>
+        <br>
+        <a href="/api/shows">API Shows List</a> | <a href="https://github.com/nikorasu-san/FriendFinder">GitHub Repo</a>
+    </div>
 </body>
 
 </html>
