@@ -9,8 +9,21 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+    <!-- <link rel="stylesheet" type="text/css" href="./assets/css/style.css"> -->
     <script src="https://code.jquery.com/jquery.js"></script>
+    <style>
+        .fieldwidth {
+            width: 50%;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .top {
+            top: 12rem;
+        }
+    </style>
 </head>
 
 <body>
@@ -149,9 +162,9 @@
         </div>
 
 
-        <div class="card border-dark mb-3" id="results">
+        <div class="card border-dark mb-3 hide" id="results">
             <div class="card-header h1">Results</div>
-            <div class="card-body text-dark" id="result-body">
+            <div class="card-body text-dark text-center" id="result-body">
 
             </div>
         </div>
@@ -187,23 +200,42 @@
                 score: [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10]
             }
             console.log(newUser)
-            // $.ajax({
-            //     url: "/api/users",
-            //     method: "POST",
-            //     body: newUser
-            // }).then(function (data) {
-            //     console.log("data:", data)
-            //     // hide form? go to results
-            // })
+
             $.post("/api/users", newUser).then(function (data) {
                 if (data) {
-                    console.log("complete")
+                    console.log(data)
+
+                    // display data in results section 
+                    $("#result-body").html(`<h3>You should watch:<br> <span class="text-success">${data.show_name}<span></h3><br>`)
+                    let userSection = $("#result-body").append(`<h3>Others who matched with this show:</h3>`)
+                    console.log(data.userMatch)
+                    // parse out userMatch array
+                    for (let i = 0; i < data.userMatch.length; i++) {
+                        let user = $(`<h3 class="text-success">${data.userMatch[i]}</h3>`)
+                        console.log(user)
+                        $(userSection).append(user)
+                    }
+                    // push a button
+                    $("#result-body").append(`<button class="btn btn-primary" id="show">Show Survey</button>`)
+
+
+                    // hide survey, show results
+                    $("#survey").attr("class", "hide")
+                    $("#results").attr("class", "card border-dark mb-3 mt-4 top text-center")
+
                 } else {
-                    console.log("no response")
+                    console.log("no response from server")
                 }
 
             })
-        })
+        });
+        $(document).on("click", "#show", function () {
+            $("#survey").attr("class", "card border-dark mb-3")
+            $("#result-body").empty();
+            $("#results").attr("class", "hide")
+        });
+
+
     </script>
 </body>
 
