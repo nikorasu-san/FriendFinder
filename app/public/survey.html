@@ -8,7 +8,9 @@
     <title>Survey</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
 </head>
 
 <body>
@@ -155,15 +157,54 @@
         </div>
     </div>
     </div>
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-    <script type="text/javascript" src="./assets/javascript/javascript.js"></script>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        $("#submit").on("click", function (event) {
+            event.preventDefault();
+            console.log("click")
+            let q1 = $("#q1").find(":selected").text()[0]
+            let q2 = $("#q2").find(":selected").text()[0]
+            let q3 = $("#q3").find(":selected").text()[0]
+            let q4 = $("#q4").find(":selected").text()[0]
+            let q5 = $("#q5").find(":selected").text()[0]
+            let q6 = $("#q6").find(":selected").text()[0]
+            let q7 = $("#q7").find(":selected").text()[0]
+            let q8 = $("#q8").find(":selected").text()[0]
+            let q9 = $("#q9").find(":selected").text()[0]
+            let q10 = $("#q10").find(":selected").text()[0]
+
+            var newUser = {
+                name: $("#name").val().trim(),
+                photo: $("#photo").val().trim(),
+                score: [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10]
+            }
+            console.log(newUser)
+            // $.ajax({
+            //     url: "/api/users",
+            //     method: "POST",
+            //     data: newUser
+            // }).then(function (data) {
+            //     console.log("data:", data)
+            //     // hide form? go to results
+            // })
+            $.post("/api/users", newUser).then(function (data) {
+                if (data) {
+                    console.log("complete")
+                } else {
+                    console.log("no response")
+                }
+
+            })
+        })
+    </script>
 </body>
 
 </html>

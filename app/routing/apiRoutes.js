@@ -21,42 +21,49 @@ module.exports = function (app) {
     })
 
 
-    // app.post("", function (req, res) {
-    //     compare users
-    /*
+    app.post("/api/users", function (req, res) {
+        debugger
+        console.log(req.body)
 
-       function findMatch(userData, friends) {
-    const bestMatch = {
-        name: '',
-        photo: 'url',
-        friendDifference: Infinity
-    }
-
-    for (let i loop over the friends) {
-        totalDifference = 0;
-        currentFriend = friends[i]
-
-        for (let j loop over currentFriend.scores){
-            //compare the userData.scores[j] and currentFriend.scores[j]
-
-            totalDifference += Math.abs(parseInt(user score) - parseInt(friend score))
+        console.log(res)
+        var newUser = req.body
+        console.log("nop", newUser)
+        //     compare users
+        /*
+    
+           function findMatch(userData, friends) {
+        const bestMatch = {
+            name: '',
+            photo: 'url',
+            friendDifference: Infinity
         }
-
-if (totalDifference <= bestMatch.friendDifference) {
-            bestMatch = currentFriend
+    
+        for (let i loop over the friends) {
+            totalDifference = 0;
+            currentFriend = friends[i]
+    
+            for (let j loop over currentFriend.scores){
+                //compare the userData.scores[j] and currentFriend.scores[j]
+    
+                totalDifference += Math.abs(parseInt(user score) - parseInt(friend score))
+            }
+    
+    if (totalDifference <= bestMatch.friendDifference) {
+                bestMatch = currentFriend
+            }
+    
+            
         }
-
-        
+    
+    return bestMatch;
     }
+    
+    }
+    */
 
-return bestMatch;
-}
+        res.json(true)
 
-}
-*/
+        // });
 
-    //     res.json(true)
-
-    // });
-
+    })
 }
