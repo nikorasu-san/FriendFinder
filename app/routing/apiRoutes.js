@@ -1,4 +1,4 @@
-//const orm = require("../../config/orm")
+// requirements 
 const connection = require("../../config/connection")
 const axios = require('axios')
 const omdb = require("../../keys")
@@ -61,7 +61,7 @@ function findShowMatch(shows, bestMatch, userData, res) {
         if (totalDifference < bestMatch.scoreDifference) {
             // add the winning show name to bestMatch JSON to go to site and userData JSON to go to database
             bestMatch.show_name = currentShow.show_name;
-            userData.shown_name = currentShow.show_name;
+            userData.show_name = currentShow.show_name;
             bestMatch.scoreDifference = totalDifference
         } else {
             // do nothing

@@ -39,12 +39,12 @@
                 <h2>About You</h2>
                 <form>
                     <div class="form-group">
-                        <label for="exampleInputName">Name (Required)</label>
+                        <label for="exampleInputName">Name (required)</label>
                         <input type="name" class="form-control" id="name" aria-describedby="nameHelp"
                             placeholder="Enter your name">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPhoto">Link to Photo Image (Required)
+                        <label for="exampleInputPhoto">Link to a photo image (or Social Media profile). (required)
                         </label>
                         <input type="url" class="form-control" id="photo"
                             placeholder="http://lorempixel.com/400/200/people/">
@@ -205,41 +205,55 @@
                 score: [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10]
             }
             console.log(newUser)
+            // url validation logic
+            let httpCheck = /http:/g
+            let httpsCheck = /https:/g
+            if (newUser.name.trim() === "") {
+                alert("Please enter a name");
+                // if photo url field is blank or doesn't have http or https at index 0
+            } else if (newUser.photo.trim() === "" || newUser.photo.search(httpCheck) !== 0 && newUser.photo.search(httpsCheck) !== 0) {
+                alert("Please enter in a URL")
+            } else {
+                // validations passed, make a POST call to server
+                $.post("/api/users", newUser).then(function (data) {
+                    if (data) {
+                        // log available data
+                        console.log(data)
 
-            $.post("/api/users", newUser).then(function (data) {
-                if (data) {
-                    console.log(data)
+                        // display data in results section 
+                        // display matched show details
+                        $("#result-body").html(`<h3>You should watch:<br> <span class="text-success">${data.show_name}<span><br><img src="${data.poster}"/><br><br>${data.plot}</h3><br>`)
 
-                    // display data in results section 
-                    // matched show details
-                    //let poster = $(`<img src=${data.poster}/>`);
-                    //console.log("poster:", poster)
-                    //let plot = $(`${data.plot}`);
-                    console.log("plot:", data.plot)
-                    $("#result-body").html(`<h3>You should watch:<br> <span class="text-success">${data.show_name}<span><br><img src="${data.poster}"/><br><br>${data.plot}</h3><br>`)
+                        // matched user details
+                        let userSection = $("#result-body").append(`<h3>Others who matched with this show:</h3>`)
+                        console.log(data.userMatch)
+                        // parse out userMatch array
+                        if (!data.userMatch.length) {
+                            // if nothing is in array, let user
+                            let user = $(`<h3 class="text-warning">No one has matched this show yet.</h3>`)
+                        } else {
+                            // loop through array
+                            for (let i = 0; i < data.userMatch.length; i++) {
+                                // display the user name with a link to their photo
+                                let user = $(`<h3 class="text-success"><a target="_blank" href="${data.userMatchPhoto[i]}">${data.userMatch[i]}</a></h3>`)
+                                console.log(user)
+                                $(userSection).append(user)
+                            }
+                        }
+                        // push a button to toggle back to survey
+                        $("#result-body").append(`<button class="btn btn-primary" id="show">Show Survey</button>`)
 
-                    // matched user details
-                    let userSection = $("#result-body").append(`<h3>Others who matched with this show:</h3>`)
-                    console.log(data.userMatch)
-                    // parse out userMatch array
-                    for (let i = 0; i < data.userMatch.length; i++) {
-                        let user = $(`<h3 class="text-success"><a target="_blank" href="${data.userMatchPhoto[i]}">${data.userMatch[i]}</a></h3>`)
-                        console.log(user)
-                        $(userSection).append(user)
+
+                        // hide survey, show results panel
+                        $("#survey").attr("class", "hide")
+                        $("#results").attr("class", "card border-dark mb-3 mt-4 top text-center")
+
+                    } else {
+                        console.log("no response from server")
                     }
-                    // push a button to toggle back to survey
-                    $("#result-body").append(`<button class="btn btn-primary" id="show">Show Survey</button>`)
 
-
-                    // hide survey, show results panel
-                    $("#survey").attr("class", "hide")
-                    $("#results").attr("class", "card border-dark mb-3 mt-4 top text-center")
-
-                } else {
-                    console.log("no response from server")
-                }
-
-            })
+                })
+            }
         });
 
         // event to toggle back to survey form
