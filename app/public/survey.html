@@ -21,7 +21,11 @@
         }
 
         .top {
-            top: 12rem;
+            top: 2rem;
+        }
+
+        img {
+            border: 1px solid darkgrey
         }
     </style>
 </head>
@@ -194,6 +198,7 @@
             let q9 = $("#q9").find(":selected").text()[0]
             let q10 = $("#q10").find(":selected").text()[0]
 
+            // define an object that POST request will send to server
             var newUser = {
                 name: $("#name").val().trim(),
                 photo: $("#photo").val().trim(),
@@ -206,20 +211,27 @@
                     console.log(data)
 
                     // display data in results section 
-                    $("#result-body").html(`<h3>You should watch:<br> <span class="text-success">${data.show_name}<span></h3><br>`)
+                    // matched show details
+                    //let poster = $(`<img src=${data.poster}/>`);
+                    //console.log("poster:", poster)
+                    //let plot = $(`${data.plot}`);
+                    console.log("plot:", data.plot)
+                    $("#result-body").html(`<h3>You should watch:<br> <span class="text-success">${data.show_name}<span><br><img src="${data.poster}"/><br><br>${data.plot}</h3><br>`)
+
+                    // matched user details
                     let userSection = $("#result-body").append(`<h3>Others who matched with this show:</h3>`)
                     console.log(data.userMatch)
                     // parse out userMatch array
                     for (let i = 0; i < data.userMatch.length; i++) {
-                        let user = $(`<h3 class="text-success">${data.userMatch[i]}</h3>`)
+                        let user = $(`<h3 class="text-success"><a target="_blank" href="${data.userMatchPhoto[i]}">${data.userMatch[i]}</a></h3>`)
                         console.log(user)
                         $(userSection).append(user)
                     }
-                    // push a button
+                    // push a button to toggle back to survey
                     $("#result-body").append(`<button class="btn btn-primary" id="show">Show Survey</button>`)
 
 
-                    // hide survey, show results
+                    // hide survey, show results panel
                     $("#survey").attr("class", "hide")
                     $("#results").attr("class", "card border-dark mb-3 mt-4 top text-center")
 
@@ -229,6 +241,8 @@
 
             })
         });
+
+        // event to toggle back to survey form
         $(document).on("click", "#show", function () {
             $("#survey").attr("class", "card border-dark mb-3")
             $("#result-body").empty();
