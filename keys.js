@@ -1,5 +1,6 @@
 require("dotenv").config();
 
-exports.api = {
-    key: process.env.OMDB_key
+exports.password = {
+    key: process.env.OMDB_key,
+    sql: process.env.SQL
 }

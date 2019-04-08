@@ -1,10 +1,12 @@
 var mysql = require("mysql");
+const secret = require("../keys")
+
 
 var connection = mysql.createConnection({
     host: "localhost",
     port: 8889,
     user: "root",
-    password: "root",
+    password: secret.password.sql,
     database: "tvfriendfinder"
 });
 

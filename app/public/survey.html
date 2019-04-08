@@ -10,7 +10,6 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- <link rel="stylesheet" type="text/css" href="./assets/css/style.css"> -->
-    <script src="https://code.jquery.com/jquery.js"></script>
     <style>
         .fieldwidth {
             width: 50%;
@@ -39,12 +38,13 @@
                 <h2>About You</h2>
                 <form>
                     <div class="form-group">
-                        <label for="exampleInputName">Name (required)</label>
+                        <label for="exampleInputName">Name <span class="text-danger">(required)</span></label>
                         <input type="name" class="form-control" id="name" aria-describedby="nameHelp"
                             placeholder="Enter your name">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPhoto">Link to a photo image (or Social Media profile). (required)
+                        <label for="exampleInputPhoto">Link to a photo image or Social Media profile. <span
+                                class="text-danger">(required)</span>
                         </label>
                         <input type="url" class="form-control" id="photo"
                             placeholder="http://lorempixel.com/400/200/people/">
@@ -173,20 +173,20 @@
             </div>
         </div>
     </div>
-    </div>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
     <script type="text/javascript">
         $("#submit").on("click", function (event) {
+            // prevent page refreshes
             event.preventDefault();
-            console.log("click")
+            // store the first character in the selected dropdown answers
             let q1 = $("#q1").find(":selected").text()[0]
             let q2 = $("#q2").find(":selected").text()[0]
             let q3 = $("#q3").find(":selected").text()[0]
@@ -205,24 +205,26 @@
                 score: [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10]
             }
             console.log(newUser)
-            // url validation logic
+            // define regex variables for url validation logic
             let httpCheck = /http:/g
             let httpsCheck = /https:/g
+            // check that a name was given
             if (newUser.name.trim() === "") {
                 alert("Please enter a name");
-                // if photo url field is blank or doesn't have http or https at index 0
+                // if photo url field is blank or doesn't have http/https at index 0
             } else if (newUser.photo.trim() === "" || newUser.photo.search(httpCheck) !== 0 && newUser.photo.search(httpsCheck) !== 0) {
                 alert("Please enter in a URL")
             } else {
                 // validations passed, make a POST call to server
                 $.post("/api/users", newUser).then(function (data) {
+                    // if there is a response from POST call
                     if (data) {
                         // log available data
                         console.log(data)
 
                         // display data in results section 
                         // display matched show details
-                        $("#result-body").html(`<h3>You should watch:<br> <span class="text-success">${data.show_name}<span><br><img src="${data.poster}"/><br><br>${data.plot}</h3><br>`)
+                        $("#result-body").html(`<h3>We recommend:<br> <span class="text-success">${data.show_name}<span><br><img src="${data.poster}"/><br><br>${data.plot}<br><br>Genre: ${data.genre}</h3>`)
 
                         // matched user details
                         let userSection = $("#result-body").append(`<h3>Others who matched with this show:</h3>`)
@@ -231,6 +233,7 @@
                         if (!data.userMatch.length) {
                             // if nothing is in array, let user
                             let user = $(`<h3 class="text-warning">No one has matched this show yet.</h3>`)
+                            $(userSection).append(user)
                         } else {
                             // loop through array
                             for (let i = 0; i < data.userMatch.length; i++) {

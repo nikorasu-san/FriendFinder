@@ -1,8 +1,9 @@
 // Dependencies
 var express = require("express");
+var path = require('path')
 
 var app = express();
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, '/public')));
 
 // process.env.PORT lets the port be set by Heroku
 var PORT = process.env.PORT || 3000;

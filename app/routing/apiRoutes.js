@@ -1,13 +1,13 @@
 // requirements 
 const connection = require("../../config/connection")
 const axios = require('axios')
-const omdb = require("../../keys")
+const secret = require("../../keys")
 
 module.exports = function (app) {
 
     // GET method to reveal database data on possible show matches 
     app.get("/api/shows", function (req, res) {
-        console.log(omdb.api.key)
+        console.log(secret.password.key)
         connection.query("SELECT * FROM ??;", "shows", function (err, data) {
             if (err) throw err;
             //console.log(data)
@@ -24,6 +24,20 @@ module.exports = function (app) {
         })
     })
 
+    app.post("/friends", function (req, res) {
+        console.log(req.body)
+        let fellowUsers = { fellowUserName: [], fellowPhoto: [] };
+        let show_name = req.body.show;
+        connection.query("SELECT user_name, photo FROM users WHERE show_name = ? ORDER BY user_name ASC;", [show_name], function (err, data) {
+            if (err) throw err;
+            console.log(data)
+            for (let m = 0; m < data.length; m++) {
+                fellowUsers.fellowUserName.push(data[m].user_name);
+                fellowUsers.fellowPhoto.push(data[m].photo);
+            }
+            res.json(fellowUsers);
+        })
+    })
 
     app.post("/api/users", function (req, res) {
         var userData = req.body
@@ -91,10 +105,10 @@ function pingOMDB(bestMatch, userData, res) {
     // set a regex and replace variable to manipulate show title into a format friendly to OMDB API
     let regex = /[- ]/g
     let apiSafeTitle = bestMatch.show_name.replace(regex, "+")
-    let apiUrl = `http://www.omdbapi.com/?apikey=${omdb.api.key}&type=series&t=${apiSafeTitle}`;
+    let apiUrl = `http://www.omdbapi.com/?apikey=${secret.password.key}&type=series&t=${apiSafeTitle}`;
     // resolve edge case with show options that won't appear correctly
     if (bestMatch.show_name === "CW Charmed") {
-        apiUrl = `http://www.omdbapi.com/?apikey=${omdb.api.key}&type=series&t=Charmed&y=2018`;
+        apiUrl = `http://www.omdbapi.com/?apikey=${secret.password.key}&type=series&t=Charmed&y=2018`;
     }
     // API call to OMDB
     axios.get(apiUrl).then(function (response) {
@@ -125,6 +139,7 @@ function addUser(bestMatch, userData, res) {
     connection.query("INSERT INTO users (user_name,photo,score,show_name) VALUES (?,?,?,?);", [userData.name, userData.photo, userData.score, userData.show_name], function (err, data) {
         if (err) throw err;
         console.log(data.affectedRows)
+        // finally trigger the POST response
         res.json(bestMatch)
     })
 }
