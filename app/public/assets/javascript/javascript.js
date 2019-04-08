@@ -1,44 +1,86 @@
 $(document).ready(function () {
     console.log("attached")
 
-    // $("#submit").on("click", function (event) {
-    //     event.preventDefault();
-    //     console.log("click")
-    //         // Here we grab the form elements
-    //         // var newUser = {
-    //         //     name: $("#name").val().trim(),
-    //         //     // phoneNum: $("#phoneNumber").val().trim(),
-    //         //     // email: $("#customerEmail").val().trim(),
-    //         //     // id: $("#customerID").val().trim()
+    $("#submit").on("click", function (event) {
+        // prevent page refreshes
+        event.preventDefault();
+        // store the first character in the selected dropdown answers
+        let q1 = $("#q1").find(":selected").text()[0]
+        let q2 = $("#q2").find(":selected").text()[0]
+        let q3 = $("#q3").find(":selected").text()[0]
+        let q4 = $("#q4").find(":selected").text()[0]
+        let q5 = $("#q5").find(":selected").text()[0]
+        let q6 = $("#q6").find(":selected").text()[0]
+        let q7 = $("#q7").find(":selected").text()[0]
+        let q8 = $("#q8").find(":selected").text()[0]
+        let q9 = $("#q9").find(":selected").text()[0]
+        let q10 = $("#q10").find(":selected").text()[0]
+
+        // define an object that POST request will send to server
+        var newUser = {
+            name: $("#name").val().trim(),
+            photo: $("#photo").val().trim(),
+            score: [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10]
+        }
+        console.log(newUser)
+        // define regex variables for url validation logic
+        let httpCheck = /http:/g
+        let httpsCheck = /https:/g
+        // check that a name was given
+        if (newUser.name.trim() === "") {
+            alert("Please enter a name");
+            // if photo url field is blank or doesn't have http/https at index 0
+        } else if (newUser.photo.trim() === "" || newUser.photo.search(httpCheck) !== 0 && newUser.photo.search(httpsCheck) !== 0) {
+            alert("Please enter in a URL")
+        } else {
+            // validations passed, make a POST call to server
+            $.post("/api/users", newUser).then(function (data) {
+                // if there is a response from POST call
+                if (data) {
+                    // log available data
+                    console.log(data)
+
+                    // display data in results section 
+                    // display matched show details
+                    $("#result-body").html(`<h3>We recommend:<br> <span class="text-success">${data.show_name}<span><br><img src="${data.poster}"/><br><br>${data.plot}<br><br>Genre: ${data.genre}</h3>`)
+
+                    // matched user details
+                    let userSection = $("#result-body").append(`<h3>Others who matched with this show:</h3>`)
+                    console.log(data.userMatch)
+                    // parse out userMatch array
+                    if (!data.userMatch.length) {
+                        // if nothing is in array, let user
+                        let user = $(`<h3 class="text-warning">No one has matched this show yet.</h3>`)
+                        $(userSection).append(user)
+                    } else {
+                        // loop through array
+                        for (let i = 0; i < data.userMatch.length; i++) {
+                            // display the user name with a link to their photo
+                            let user = $(`<h3 class="text-success"><a target="_blank" href="${data.userMatchPhoto[i]}">${data.userMatch[i]}</a></h3>`)
+                            console.log(user)
+                            $(userSection).append(user)
+                        }
+                    }
+                    // push a button to toggle back to survey
+                    $("#result-body").append(`<button class="btn btn-primary" id="show">Show Survey</button>`)
 
 
-    //         // };
+                    // hide survey, show results panel
+                    $("#survey").attr("class", "hide")
+                    $("#results").attr("class", "card border-dark mb-3 mt-4 top text-center")
 
-    //         // console.log(newUser);
+                } else {
+                    console.log("no response from server")
+                }
 
+            })
+        }
+    });
 
-    //         // NEED TO ADD PATH=======
-    //         /* $.post("/api/tables", newReservation).then(
-    //              function (data) {
-    //                  console.log(data)
-    //                  // If a table is available... tell user they are booked.
-    //                  if (data) {
-    //                      alert("All booked!!");
-
-    //                      console.log("data", data)
-    //                  }
-
-    //                  // If a table is available... tell user they on the waiting list.
-    //                  else {
-    //                      alert("Sorry going to have to wait!!!");
-    //                  }
-
-    //                  // Clear the form when submitting
-    //                  $("#CustomerName").val("");
-    //                  $("#phoneNumber").val("");
-    //                  $("#customerEmail").val("");
-    //                  $("#customerID").val("");
-    //              }) 
-    //              */
-    // });
+    // event to toggle back to survey form
+    $(document).on("click", "#show", function () {
+        $("#survey").attr("class", "card border-dark mb-3")
+        $("#result-body").empty();
+        $("#results").attr("class", "hide")
+    });
 });

@@ -1,9 +1,16 @@
-select {
-    width: 25%;
+.fieldwidth {
+    width: 50%;
 }
 
-.fieldwidth{
-    width: 25%;
-     
-} 
+.hide {
+    display: none;
+}
+
+.top {
+    top: 2rem;
+}
+
+img {
+    border: 1px solid darkgrey
+}
 

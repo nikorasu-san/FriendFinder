@@ -1,5 +1,5 @@
 var path = require("path");
-
+var express = require("express");
 
 // Sets up the Express app to handle data parsing
 // app.use(express.urlencoded({ extended: true }));
@@ -7,6 +7,7 @@ var path = require("path");
 
 module.exports = function (app) {
 
+    app.use(express.static(path.join(__dirname, '../public')));
 
     app.get("/survey", function (req, res) {
         res.sendFile(path.join(__dirname, "../public/survey.html"));
