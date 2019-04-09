@@ -79,7 +79,7 @@ $(document).ready(function () {
 
     // event on survey.html to toggle back to survey form
     $(document).on("click", "#show", function () {
-        $("#survey").attr("class", "card border-dark mb-3")
+        $("#survey").attr("class", "card border-dark mt-4 mb-3")
         $("#result-body").empty();
         $("#results").attr("class", "hide")
     });
