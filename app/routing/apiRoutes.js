@@ -89,14 +89,18 @@ function findUserMatch(bestMatch, userData, res) {
     connection.query("SELECT user_name, photo FROM users WHERE show_name = ?;", [bestMatch.show_name], function (err, friends) {
         if (err) throw err;
         console.log(friends)
-        // loop through matched users and push to working POST response object
-        for (let k = 0; k < friends.length; k++) {
-            bestMatch.userMatch.push(friends[k].user_name);
-            bestMatch.userMatchPhoto.push(friends[k].photo);
+        if (friends.length) {
+            // loop through matched users and push to working POST response object
+            for (let k = 0; k < friends.length; k++) {
+                bestMatch.userMatch.push(friends[k].user_name);
+                bestMatch.userMatchPhoto.push(friends[k].photo);
+            }
+            console.log("best:", bestMatch);
+            // ping OMDB for show information
+            pingOMDB(bestMatch, userData, res)
+        } else {
+            pingOMDB(bestMatch, userData, res)
         }
-        console.log("best:", bestMatch);
-        // ping OMDB for show information
-        pingOMDB(bestMatch, userData, res)
 
     })
 }
