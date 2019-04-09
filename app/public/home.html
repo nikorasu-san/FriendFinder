@@ -8,22 +8,56 @@
     <title>Home</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
 <body>
     <div class="container">
-        <div class="jumbotron text-center mt-4">
-            <h1 class="display-4">TV Friend Finder</h1>
-            <p class="lead">Answer some basic questions and find a show that we recommend.</p>
-            <hr class="my-4">
-            <p>Don't worry "Game of Thrones" isn't a winning match.</p>
-            <p> You should know by now if you love or hate it.</p>
-            <a class="btn btn-primary btn-lg text-center" href="/survey" role="button">Go to Survey</a>
+        <div class="header clearfix">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded"
+                style="float: none; padding-right: 16px; display: block;" id=""> <a class="navbar-brand" href="#"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item"> <a class="nav-link active" href="#">Home<span
+                                    class="sr-only">(current)</span></a> </li>
+                        <li class="nav-item"> <a class="nav-link" href="/survey">Survey</a> </li>
+                        <li class="nav-item"> <a class="nav-link" href="/friends">Friends</a> </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="jumbotron text-center mt-4">
+                <h1 class="display-4">TV Friend Finder</h1>
+                <p class="lead">Need advice on what TV show to watch next? <br> Answer our survey to get a TV show
+                    recommendation that fits you. <br> Once you match with a show, you
+                    will also see a history of past users that matched this show.</p>
+                <a class="btn btn-primary btn-lg text-center" href="/survey" role="button">Take Survey</a><br><br>
+                <p><em>"Game of Thrones" isn't a show recommendation here. We assume someone you know has already
+                        recommended it.</em></p>
+                <hr class="my-4">
+                <p class="lead">If you have already matched with a show, use the "find friends" button to see past
+                    user's that matched with the show. Reach out and find your tribe.</p>
+                <a class="btn btn-primary btn-lg text-center" href="/friends" role="button">Find Friends</a><br><br>
+                <a target="_blank" href="/api/shows">API Shows List</a> | <a target="_blank" href="/api/users">API User
+                    List</a>
+                | <a target="_blank" href="https://github.com/nikorasu-san/FriendFinder">GitHub Repo</a>
+
+            </div>
+            <br>
         </div>
-        <br>
-        <a target="_blank" href="/api/shows">API Shows List</a> | <a target="_blank" href="/api/users">API User List</a>
-        | <a target="_blank" href="https://github.com/nikorasu-san/FriendFinder">GitHub Repo</a>
     </div>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

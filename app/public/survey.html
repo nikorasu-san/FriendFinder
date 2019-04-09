@@ -15,145 +15,164 @@
 
 <body>
     <div class="container">
-        <div class="card border-dark mb-3" id="survey">
-            <div class="card-header h1">Survey Questions</div>
-            <div class="card-body text-dark">
-                <!-- <h1>Survey Questions</h1> -->
-                <h2>About You</h2>
-                <form>
-                    <div class="form-group">
-                        <label for="exampleInputName">Name <span class="text-danger">(required)</span></label>
-                        <input type="name" class="form-control" id="name" aria-describedby="nameHelp"
-                            placeholder="Enter your name">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPhoto">Link to a photo image or Social Media profile. <span
-                                class="text-danger">(required)</span>
-                        </label>
-                        <input type="url" class="form-control" id="photo"
-                            placeholder="http://lorempixel.com/400/200/people/">
-                    </div>
-                    <hr>
-                    <div class="form-group">
-                        <h3>Question 1</h3>
-                        <h4>I live for a musical episode of a show.</h4>
-                        <select class="form-control fieldwidth" id="q1">
-                            <option>1 (Strongly Disagree)</option>
-                            <option>2</option>
-                            <option>3 (Neutral) </option>
-                            <option>4</option>
-                            <option>5 (Strongly Agree)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <h3>Question 2</h3>
-                        <h4>I like fantasy shows that rely on the supernatural, magic, or powers of some kind?</h4>
-                        <select class="form-control fieldwidth" id="q2">
-                            <option>1 (Strongly Disagree)</option>
-                            <option>2</option>
-                            <option>3 (Neutral) </option>
-                            <option>4</option>
-                            <option>5 (Strongly Agree)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <h3>Question 3</h3>
-                        <h4>I love a show that explores family dysfunction.</h4>
-                        <select class="form-control fieldwidth" id="q3">
-                            <option>1 (Strongly Disagree)</option>
-                            <option>2</option>
-                            <option>3 (Neutral) </option>
-                            <option>4</option>
-                            <option>5 (Strongly Agree)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <h3>Question 4</h3>
-                        <h4>I just want a good cry and some ice cream.</h4>
-                        <select class="form-control fieldwidth" id="q4">
-                            <option>1 (Strongly Disagree)</option>
-                            <option>2</option>
-                            <option>3 (Neutral) </option>
-                            <option>4</option>
-                            <option>5 (Strongly Agree)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <h3>Question 5</h3>
-                        <h4>I want eye candy over laughter.</h4>
-                        <select class="form-control fieldwidth" id="q5">
-                            <option>1 (Strongly Disagree)</option>
-                            <option>2</option>
-                            <option>3 (Neutral) </option>
-                            <option>4</option>
-                            <option>5 (Strongly Agree)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <h3>Question 6</h3>
-                        <h4>I prefer a limited series. 20 episode seasons are too much.</h4>
-                        <select class="form-control fieldwidth" id="q6">
-                            <option>1 (Strongly Disagree)</option>
-                            <option>2</option>
-                            <option>3 (Neutral) </option>
-                            <option>4</option>
-                            <option>5 (Strongly Agree)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <h3>Question 7</h3>
-                        <h4>I love a conspiracy theory!</h4>
-                        <select class="form-control fieldwidth" id="q7">
-                            <option>1 (Strongly Disagree)</option>
-                            <option>2</option>
-                            <option>3 (Neutral) </option>
-                            <option>4</option>
-                            <option>5 (Strongly Agree)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <h3>Question 8</h3>
-                        <h4>20 main characters... not a problem.</h4>
-                        <select class="form-control fieldwidth" id="q8">
-                            <option>1 (Strongly Disagree)</option>
-                            <option>2</option>
-                            <option>3 (Neutral) </option>
-                            <option>4</option>
-                            <option>5 (Strongly Agree)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <h3>Question 9</h3>
-                        <h4>I'm okay with never seeing my fav characters go to work.</h4>
-                        <select class="form-control fieldwidth" id="q9">
-                            <option>1 (Strongly Disagree)</option>
-                            <option>2</option>
-                            <option>3 (Neutral) </option>
-                            <option>4</option>
-                            <option>5 (Strongly Agree)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <h3>Question 10</h3>
-                        <h4>Time travel and science talk give me headaches.</h4>
-                        <select class="form-control fieldwidth" id="q10">
-                            <option>1 (Strongly Disagree)</option>
-                            <option>2</option>
-                            <option>3 (Neutral) </option>
-                            <option>4</option>
-                            <option>5 (Strongly Agree)</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary" id="submit">Submit</button>
-                </form>
+        <div class="header clearfix">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded"
+                style="float: none; padding-right: 16px; display: block;" id=""> <a class="navbar-brand" href="#"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item"> <a class="nav-link" href="/">Home </a> </li>
+                        <li class="nav-item"> <a class="nav-link active" href="#">Survey<span
+                                    class="sr-only">(current)</span></a> </li>
+                        <li class="nav-item"> <a class="nav-link" href="/friends">Friends</a> </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="card border-dark mt-4 mb-3" id="survey">
+                <div class="card-header h1">Survey Questions</div>
+                <div class="card-body text-dark">
+                    <h2>About You</h2>
+                    <br>
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleInputName">
+                                <h5>Name <span class="text-danger">(required)</span></h5>
+                            </label>
+                            <input type="name" class="form-control" id="name" aria-describedby="nameHelp"
+                                placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPhoto">
+                                <h5>Link to a photo image or Social Media profile. <span
+                                        class="text-danger">(required)</span></h5>
+                            </label>
+                            <input type="url" class="form-control" id="photo" placeholder="http://tinyurl.com/y54ymd4x">
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <h3>Question 1</h3>
+                            <h4>I live for musical episodes in a series.</h4>
+                            <select class="form-control fieldwidth" id="q1">
+                                <option>1 (Strongly Disagree)</option>
+                                <option>2</option>
+                                <option>3 (Neutral) </option>
+                                <option>4</option>
+                                <option>5 (Strongly Agree)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <h3>Question 2</h3>
+                            <h4>I like fantasy shows that rely on the supernatural, magic, or powers of some kind.</h4>
+                            <select class="form-control fieldwidth" id="q2">
+                                <option>1 (Strongly Disagree)</option>
+                                <option>2</option>
+                                <option>3 (Neutral) </option>
+                                <option>4</option>
+                                <option>5 (Strongly Agree)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <h3>Question 3</h3>
+                            <h4>I love a show that explores family dysfunction.</h4>
+                            <select class="form-control fieldwidth" id="q3">
+                                <option>1 (Strongly Disagree)</option>
+                                <option>2</option>
+                                <option>3 (Neutral) </option>
+                                <option>4</option>
+                                <option>5 (Strongly Agree)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <h3>Question 4</h3>
+                            <h4>I just want a good cry and some ice cream.</h4>
+                            <select class="form-control fieldwidth" id="q4">
+                                <option>1 (Strongly Disagree)</option>
+                                <option>2</option>
+                                <option>3 (Neutral) </option>
+                                <option>4</option>
+                                <option>5 (Strongly Agree)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <h3>Question 5</h3>
+                            <h4>I want eye candy over laughter.</h4>
+                            <select class="form-control fieldwidth" id="q5">
+                                <option>1 (Strongly Disagree)</option>
+                                <option>2</option>
+                                <option>3 (Neutral) </option>
+                                <option>4</option>
+                                <option>5 (Strongly Agree)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <h3>Question 6</h3>
+                            <h4>I prefer a limited series. 20 episode seasons are too much.</h4>
+                            <select class="form-control fieldwidth" id="q6">
+                                <option>1 (Strongly Disagree)</option>
+                                <option>2</option>
+                                <option>3 (Neutral) </option>
+                                <option>4</option>
+                                <option>5 (Strongly Agree)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <h3>Question 7</h3>
+                            <h4>I love a conspiracy theory!</h4>
+                            <select class="form-control fieldwidth" id="q7">
+                                <option>1 (Strongly Disagree)</option>
+                                <option>2</option>
+                                <option>3 (Neutral) </option>
+                                <option>4</option>
+                                <option>5 (Strongly Agree)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <h3>Question 8</h3>
+                            <h4>I'm not overwhelmed by shows with 20 main characters.</h4>
+                            <select class="form-control fieldwidth" id="q8">
+                                <option>1 (Strongly Disagree)</option>
+                                <option>2</option>
+                                <option>3 (Neutral) </option>
+                                <option>4</option>
+                                <option>5 (Strongly Agree)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <h3>Question 9</h3>
+                            <h4>I'm okay with never seeing my favorite characters go to work.</h4>
+                            <select class="form-control fieldwidth" id="q9">
+                                <option>1 (Strongly Disagree)</option>
+                                <option>2</option>
+                                <option>3 (Neutral) </option>
+                                <option>4</option>
+                                <option>5 (Strongly Agree)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <h3>Question 10</h3>
+                            <h4>I don't want to deal with time travel or scientific terms.</h4>
+                            <select class="form-control fieldwidth" id="q10">
+                                <option>1 (Strongly Disagree)</option>
+                                <option>2</option>
+                                <option>3 (Neutral) </option>
+                                <option>4</option>
+                                <option>5 (Strongly Agree)</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+                    </form>
+                </div>
             </div>
-        </div>
 
 
-        <div class="card border-dark mb-3 hide" id="results">
-            <div class="card-header h1">Results</div>
-            <div class="card-body text-dark text-center" id="result-body">
+            <div class="card border-dark mb-3 hide" id="results">
+                <div class="card-header h1">Results</div>
+                <div class="card-body text-dark text-center" id="result-body">
 
+                </div>
             </div>
         </div>
     </div>

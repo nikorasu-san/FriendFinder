@@ -8,76 +8,72 @@
     <title>Result</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
 <body>
     <div class="container">
-        <div class="card border-dark mb-3" id="survey">
-            <div class="card-header h1">Friend Finder</div>
-            <div class="card-body text-dark">
-                <form>
-                    <div class="form-group">
-                        <h3></h3>
-                        <h3>Which show are you watching</h3>
-                        <select class="form-control fieldwidth" id="show-name">
-                            <option data-showid="3">Brooklyn Nine-Nine</option>
-                            <option data-showid="9">Chilling Adventures of Sabrina</option>
-                            <option data-showid="1">Crazy Ex-Girlfriend</option>
-                            <option data-showid="2">CW Charmed</option>
-                            <option data-showid="10">Grace and Frankie</option>
-                            <option data-showid="13">Insecure</option>
-                            <option data-showid="12">Killing Eve</option>
-                            <option data-showid="7">Kim's Convenience</option>
-                            <option data-showid="11">Schitt's Creek</option>
-                            <option data-showid="5">The Flash</option>
-                            <option data-showid="8">The Good Place</option>
-                            <option data-showid="4">This Is Us</option>
-                            <option data-showid="6">Umbrella Academy</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary" id="submit-show">Submit</button>
-                </form>
+        <div class="header clearfix">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded"
+                style="float: none; padding-right: 16px; display: block;" id=""> <a class="navbar-brand" href="#"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item"> <a class="nav-link" href="/">Home </a> </li>
+                        <li class="nav-item"> <a class="nav-link" href="/survey">Survey</a> </li>
+                        <li class="nav-item"> <a class="nav-link active" href="#">Friends<span
+                                    class="sr-only">(current)</span></a> </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="card border-dark mt-4 mb-3" id="survey">
+                <div class="card-header h1">Friend Finder</div>
+                <div class="card-body text-dark">
+                    <form>
+                        <div class="form-group">
+                            <h3></h3>
+                            <h3>Which show are you watching</h3>
+                            <select class="form-control fieldwidth" id="show-name">
+                                <option data-showid="3">Brooklyn Nine-Nine</option>
+                                <option data-showid="9">Chilling Adventures of Sabrina</option>
+                                <option data-showid="1">Crazy Ex-Girlfriend</option>
+                                <option data-showid="2">CW Charmed</option>
+                                <option data-showid="10">Grace and Frankie</option>
+                                <option data-showid="13">Insecure</option>
+                                <option data-showid="12">Killing Eve</option>
+                                <option data-showid="7">Kim's Convenience</option>
+                                <option data-showid="11">Schitt's Creek</option>
+                                <option data-showid="5">The Flash</option>
+                                <option data-showid="8">The Good Place</option>
+                                <option data-showid="4">This Is Us</option>
+                                <option data-showid="6">Umbrella Academy</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="submit-show">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div class="card border-dark mb-3" id="result-friends">
+                <div class="card-header h1">Results</div>
+                <div class="card-body text-dark " id="result-body">
+                </div>
             </div>
         </div>
-        <div class="card border-dark mb-3" id="result-friends">
-            <div class="card-header h1">Results</div>
-            <div class="card-body text-dark " id="result-body">
-            </div>
-        </div>
-    </div>
     </div>
     <script src="http://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script type="text/javascript">
-        $("#submit-show").on("click", function (event) {
-            event.preventDefault();
-            $("#result-body").empty();
 
-            var searchData = {
-                show: $("#show-name").find(":selected").text(),
-                id: $("#show-name").find(":selected").data("showid")
-            }
-            console.log(searchData)
-            $.post("/friends", searchData).then(function (data) {
-                console.log(data)
-                let userSection = $("#result-body").append(`<h3>Others who should be watching this show:</h3>`)
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="assets/javascript/javascript.js"></script>
 
-                if (!data.fellowUserName.length) {
-                    // if nothing is in array, let user
-                    let user = $(`<h3 class="text-warning">No one has matched this show yet.</h3>`)
-                    $(userSection).append(user)
-                } else {
-                    // loop through array
-                    for (let i = 0; i < data.fellowUserName.length; i++) {
-                        // display the user name with a link to their photo
-                        let user = $(`<h3 class="text-success"><a target="_blank" href="${data.fellowPhoto[i]}">${data.fellowUserName[i]}</a></h3>`)
-                        console.log(user)
-                        $(userSection).append(user)
-                    }
-                }
-            })
-        });
-    </script>
 </body>
 
 </html>

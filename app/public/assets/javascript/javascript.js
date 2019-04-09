@@ -1,6 +1,7 @@
 $(document).ready(function () {
     console.log("attached")
 
+    // submit button event on survey.html
     $("#submit").on("click", function (event) {
         // prevent page refreshes
         event.preventDefault();
@@ -16,7 +17,7 @@ $(document).ready(function () {
         let q9 = $("#q9").find(":selected").text()[0]
         let q10 = $("#q10").find(":selected").text()[0]
 
-        // define an object that POST request will send to server
+        // define an object that POST request will send to back-end
         var newUser = {
             name: $("#name").val().trim(),
             photo: $("#photo").val().trim(),
@@ -33,12 +34,11 @@ $(document).ready(function () {
         } else if (newUser.photo.trim() === "" || newUser.photo.search(httpCheck) !== 0 && newUser.photo.search(httpsCheck) !== 0) {
             alert("Please enter in a URL")
         } else {
-            // validations passed, make a POST call to server
+            // validations passed, make a POST call to back-end
             $.post("/api/users", newUser).then(function (data) {
                 // if there is a response from POST call
                 if (data) {
-                    // log available data
-                    console.log(data)
+
 
                     // display data in results section 
                     // display matched show details
@@ -50,7 +50,7 @@ $(document).ready(function () {
                     // parse out userMatch array
                     if (!data.userMatch.length) {
                         // if nothing is in array, let user
-                        let user = $(`<h3 class="text-warning">No one has matched this show yet.</h3>`)
+                        let user = $(`<h3 class="text-danger">No one has matched this show yet.</h3>`)
                         $(userSection).append(user)
                     } else {
                         // loop through array
@@ -70,17 +70,51 @@ $(document).ready(function () {
                     $("#results").attr("class", "card border-dark mb-3 mt-4 top text-center")
 
                 } else {
-                    console.log("no response from server")
+                    console.log("Troubleshoot POST response from back-end.")
                 }
 
             })
         }
     });
 
-    // event to toggle back to survey form
+    // event on survey.html to toggle back to survey form
     $(document).on("click", "#show", function () {
         $("#survey").attr("class", "card border-dark mb-3")
         $("#result-body").empty();
         $("#results").attr("class", "hide")
+    });
+
+    // Submit form event on result.html 
+    $("#submit-show").on("click", function (event) {
+        // prevent page refresh on click
+        event.preventDefault();
+        // clear result section
+        $("#result-body").empty();
+
+        // define JSON sent to back-end
+        var searchData = {
+            show: $("#show-name").find(":selected").text(),
+            id: $("#show-name").find(":selected").data("showid")
+        }
+
+        // make POST call to back-end
+        $.post("/friends", searchData).then(function (data) {
+            console.log(data)
+            // set a sub-header for the results
+            let userSection = $("#result-body").append(`<h3>Others who should be watching this show:</h3>`)
+
+            if (!data.fellowUserName.length) {
+                // if userName array is empty, update the header to alert no-users found
+                userSection = $("#result-body").html(`<h3 class="text-danger">No one has matched this show yet.</h3>`)
+            } else {
+                // loop through userName array
+                for (let i = 0; i < data.fellowUserName.length; i++) {
+                    // display the user name with a link to their photo under the results sub-header
+                    let user = $(`<h3 class="text-success"><a target="_blank" href="${data.fellowPhoto[i]}">${data.fellowUserName[i]}</a></h3>`)
+                    console.log(user)
+                    $(userSection).append(user)
+                }
+            }
+        })
     });
 });
