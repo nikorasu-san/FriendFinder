@@ -23,7 +23,6 @@ $(document).ready(function () {
             photo: $("#photo").val().trim(),
             score: [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10]
         }
-        console.log(newUser)
         // define regex variables for url validation logic
         let httpCheck = /http:/g
         let httpsCheck = /https:/g
@@ -38,26 +37,23 @@ $(document).ready(function () {
             $.post("/api/users", newUser).then(function (data) {
                 // if there is a response from POST call
                 if (data) {
-
-
                     // display data in results section 
                     // display matched show details
                     $("#result-body").html(`<h3>We recommend:<br> <span class="text-success">${data.show_name}<span><br><img src="${data.poster}"/><br><br>${data.plot}<br><br>Genre: ${data.genre}</h3>`)
 
                     // matched user details
                     let userSection = $("#result-body").append(`<h3>Others who matched with this show:</h3>`)
-                    console.log(data.userMatch)
                     // parse out userMatch array
                     if (!data.userMatch.length) {
                         // if nothing is in array, let user
                         let user = $(`<h3 class="text-danger">No one has matched this show yet.</h3>`)
                         $(userSection).append(user)
                     } else {
-                        // loop through array
+                        // loop through array and perform information for each user
                         for (let i = 0; i < data.userMatch.length; i++) {
-                            // display the user name with a link to their photo
+                            // display a hyperlinked user name that points to their photo
                             let user = $(`<h3 class="text-success"><a target="_blank" href="${data.userMatchPhoto[i]}">${data.userMatch[i]}</a></h3>`)
-                            console.log(user)
+                            // append the user to the sub-header
                             $(userSection).append(user)
                         }
                     }
@@ -70,6 +66,7 @@ $(document).ready(function () {
                     $("#results").attr("class", "card border-dark mb-3 mt-4 top text-center")
 
                 } else {
+                    // if there is no POST response
                     console.log("Troubleshoot POST response from back-end.")
                 }
 
@@ -77,7 +74,7 @@ $(document).ready(function () {
         }
     });
 
-    // event on survey.html to toggle back to survey form
+    // button click event on survey.html to toggle back to survey form
     $(document).on("click", "#show", function () {
         $("#survey").attr("class", "card border-dark mt-4 mb-3")
         $("#result-body").empty();
@@ -99,8 +96,7 @@ $(document).ready(function () {
 
         // make POST call to back-end
         $.post("/friends", searchData).then(function (data) {
-            console.log(data)
-            // set a sub-header for the results
+            // display a sub-header for the results
             let userSection = $("#result-body").append(`<h3>Others who should be watching this show:</h3>`)
 
             if (!data.fellowUserName.length) {
@@ -111,7 +107,6 @@ $(document).ready(function () {
                 for (let i = 0; i < data.fellowUserName.length; i++) {
                     // display the user name with a link to their photo under the results sub-header
                     let user = $(`<h3 class="text-success"><a target="_blank" href="${data.fellowPhoto[i]}">${data.fellowUserName[i]}</a></h3>`)
-                    console.log(user)
                     $(userSection).append(user)
                 }
             }
