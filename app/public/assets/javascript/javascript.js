@@ -104,7 +104,7 @@ $(document).ready(function () {
             let userSection = $("#result-body").append(`<h3>Others who should be watching this show:</h3>`)
 
             if (!data.fellowUserName.length) {
-                // if userName array is empty, update the header to alert no-users found
+                // if userName array is empty, update the sub-header text to alert no-users found
                 userSection = $("#result-body").html(`<h3 class="text-danger">No one has matched this show yet.</h3>`)
             } else {
                 // loop through userName array

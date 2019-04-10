@@ -1,7 +1,8 @@
+// link dependencies 
 var mysql = require("mysql");
 const secret = require("../keys")
 
-
+// database 
 if (process.env.JAWSDB_URL) {
     var connection = mysql.createConnection(process.env.JAWSDB_URL);
 } else {
@@ -13,8 +14,6 @@ if (process.env.JAWSDB_URL) {
         database: "tvfriendfinder"
     });
 }
-
-// connection.connect()
 
 
 connection.connect(function (err) {

@@ -1,8 +1,8 @@
-// requirements 
+// require dependencies 
 const connection = require("../../config/connection")
 const axios = require('axios')
 const secret = require("../../keys")
-
+console.log("secret", secret.password.key)
 module.exports = function (app) {
 
     // GET method to reveal database data on possible show matches 
@@ -39,6 +39,7 @@ module.exports = function (app) {
         })
     })
 
+    // POST call to receive user survey answers 
     app.post("/api/users", function (req, res) {
         var userData = req.body
         console.log(userData)
