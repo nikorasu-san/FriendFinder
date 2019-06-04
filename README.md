@@ -31,7 +31,7 @@ __Back End:__
 * Node.js 
 * Express server
 * Dependencies noted in package.json
-     -   "axios": "^0.18.0",
+     -   "axios": "^0.19.0",
      -   "dotenv": "^7.0.0",
      -   "express": "^4.16.4",
      -   "mysql": "^2.16.0",
